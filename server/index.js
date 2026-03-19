@@ -41,6 +41,52 @@ const todos = [
 // TODO: GET /api/todos
 // Response: 200, array of all todos
 
+const listTasks = (req, res) => {
+  res.send(todos);
+}
+
+const findTask = (req, res) => {
+  const { id } = req.params;
+  const todo = todos.find((todo) => todo.id === Number(id))
+  if (!todo) {
+    return res.status(404).send({ message: `No todo with the id ${id}` });
+  }
+  res.send(todo);
+}
+
+const createTask = (req, res) => {
+  const { task } = req.body;
+  if (!task) {
+    return res.status(400).send({ message: `Error no task created` })
+  }
+}
+
+const updateTask = (req, res) => {
+  const { id } = req.params;
+  const todo = todos.find((todo) => todo.id === Number(id))
+  if (!task) {
+    return res.status(404).send({ message: `Error updating task ${id}` })
+  }
+}
+
+const deleteTask = (req, res) => {
+  const { id } = req.params;
+  const taskIndex = todos.findIndex((todo) => todo.id === Number(id));
+  if (taskIndex < 0) {
+    return res.status(404).send({ message: `could not delete task with id ${id}` })
+  }
+  todos.splice(taskIndex, 1);
+  res.sendStatus(204)
+}
+
+
+app.get('/api/todos', listTasks)
+app.get('/api/todos/:id', findTask)
+app.post('/api/todos', createTask)
+app.patch('/api/todos/:id', updateTask)
+app.delete('/api/todos/:id', deleteTask)
+
+
 
 // TODO: GET /api/todos/:id
 // Response: 200, single todo object

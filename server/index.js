@@ -59,15 +59,33 @@ const createTask = (req, res) => {
   if (!task) {
     return res.status(400).send({ message: `Error no task created` })
   }
+  const newTodo = {
+    id: getId(),
+    task,
+    isDone: false
+  };
+
+  todos.push(newTodo);
+
+  res.status(201).send(newTodo);
 }
 
 const updateTask = (req, res) => {
   const { id } = req.params;
-  const todo = todos.find((todo) => todo.id === Number(id))
-  if (!task) {
-    return res.status(404).send({ message: `Error updating task ${id}` })
+  const { isDone } = req.body;
+
+  const todo = todos.find((todo) => todo.id === Number(id));
+
+  if (!todo) {
+    return res.status(404).send({
+      message: `No todo with id ${id}`
+    });
   }
-}
+
+  todo.isDone = isDone;
+
+  res.status(200).send(todo);
+};
 
 const deleteTask = (req, res) => {
   const { id } = req.params;
@@ -112,7 +130,11 @@ app.delete('/api/todos/:id', deleteTask)
 
 // TODO: Catch-all handler — send a 404 JSON error for unmatched /api routes,
 // or serve index.html for all other routes (SPA fallback)
-
+app.use((req, res) => {
+  res.status(404).send({
+    message: `Error: Not found ${req.originalUrl}`
+  });
+});
 
 const port = 8080;
 app.listen(port, () => console.log(`Listening at http://localhost:${port}`));

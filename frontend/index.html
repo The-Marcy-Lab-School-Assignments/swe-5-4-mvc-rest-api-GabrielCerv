@@ -1,24 +1,27 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Todo Tracker</title>
-    <link rel="stylesheet" href="/src/style.css">
-  </head>
-  <body>
-    <main>
-      <h1>Todo Tracker</h1>
 
-      <form id="add-todo-form">
-        <input type="text" id="todo-task-input" placeholder="New task..." required aria-label="New task"/>
-        <button type="submit">Add</button>
-      </form>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Todo Tracker</title>
+  <link rel="stylesheet" href="/src/style.css">
+</head>
 
-      <ul id="todos-list"></ul>
+<body>
+  <main>
+    <h1>Todo Tracker</h1>
 
-      <p id="error" class="hidden"></p>
-    </main>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+    <form id="add-todo-form">
+      <input type="text" id="todo-task-input" placeholder="New task..." required aria-label="New task" />
+      <button type="submit">Add</button>
+    </form>
+
+    <ul id="todos-list"></ul>
+
+    <p id="error" class="hidden"></p>
+  </main>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
 </html>
